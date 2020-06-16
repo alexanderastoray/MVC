@@ -1,0 +1,30 @@
+﻿@model ChoixResto.Models.Resto
+<script type="text/javascript" src="~/wwwroot/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="~/wwwroot/jquery/jquery-validation/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="~/wwwroot/jquery/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<style type="text/css">
+    .field-validation-error { color : #f00;}
+	.validation-summary-errors { color : #f00; font-weight: bold};
+	.input-validation-error { border: 2px solide #f00;background-color : #fee}
+	input[type="text"].input-validation-error { outline: 2px solid #f00;}
+</style>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Modifier un restaurant</legend>
+
+        <div>
+            @Html.LabelFor(model => model.Nom)
+            @Html.TextBoxFor(model => model.Nom)
+            @Html.ValidationMessageFor(model => model.Nom)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Telephone)
+            @Html.TextBoxFor(model => model.Telephone)
+            @Html.ValidationMessageFor(model => model.Telephone)
+        </div>
+        <br />
+        <input type="submit" value="Modifier" />
+    </fieldset>
+}

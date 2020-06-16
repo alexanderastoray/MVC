@@ -1,0 +1,35 @@
+﻿@model ChoixResto.ViewModels.RestaurantVoteViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sondage</title>
+</head>
+<body>
+
+
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <legend></legend>
+            <h4>Cochez le restaurants où vous voulez bien aller. Attention, le vote est définitif</h4>
+        <table>
+        @foreach (var resto in Model.ListeDesResto)
+        {
+            <tr>
+                <td> @Html.CheckBoxFor(r=>resto.EstSelectionne, new {id = resto.Id});  </td>
+                <td> @Html.DisplayFor(r=>resto.NomEtTelephone); </td>
+            </tr>
+        }
+        </table>
+         <br />
+            <input type="submit" value="Valider le choix" />
+        </fieldset>
+    }
+</body>
+</html>

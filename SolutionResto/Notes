@@ -1,0 +1,78 @@
+-- Download SQL Server
+macbook-pro-de-alexander:~ alexanderastoray$ docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+
+-- Launch Docker Image
+macbook-pro-de-alexander:~ alexanderastoray$ docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Azerty1!' -e 'MSSQL_PID=Express' -p 1444:1433 -d mcr.microsoft.com/mssql/server:2019-latest 
+
+-- Verfier l'installation sur AzureDataStudio
+Note: faudra attendre le demarrage du container avant de verifier sur AzureDataStudio
+
+Note : Si ça marche pas faudra aller sur le Docker --> dashborard 
+Supprimer le container et relancer le docker image 
+
+-- Creation Projet ChoixResto 
+dotnet commands: 
+macbook-pro-de-alexander:SolutionResto alexanderastoray$ mkdir ChoixResto
+macbook-pro-de-alexander:SolutionResto alexanderastoray$ cd ChoixResto/
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet new mvc -uld --auth individual
+note : uld using local database 
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet add package Microsoft.EntityFrameworkCore.Design
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer.Design
+
+-- Rajouter les model dans le dossier models 
+-- Dans le dosssier Data on va creer notre context dans notre cas c'est BddContext 
+-- On rajoute dans la classe Startup on rajoute le nouveau context 
+
+-- Migration 
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet tool install --global dotnet-ef --version 3.1.5-*
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet-ef migrations add DbResto -c DbContext -o Data/ChoixResto
+**** ERROR ** 
+Your target project 'ChoixResto' doesn't match your migrations assembly 'Microsoft.EntityFrameworkCore'. Either change your target project or change your migrations assembly.
+Change your migrations assembly by using DbContextOptionsBuilder. E.g. options.UseSqlServer(connection, b => b.MigrationsAssembly("ChoixResto")). By default, the migrations assembly is the assembly containing the DbContext.
+Change your target project to the migrations project by using the Package Manager Console's Default project drop-down list, or by executing "dotnet ef" from the directory containing the migrations project.
+******** 
+Solution:
+Change de nom du context ==> ChoixRestoContext 
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet ef migrations add Initial -c ChoixRestoContext
+Build started...
+Build succeeded.
+Done. To undo this action, use 'ef migrations remove'
+macbook-pro-de-alexander:ChoixResto alexanderastoray$ dotnet-ef database update -c ChoixRestoContext
+Build started...
+Build succeeded.
+Done.
+// verification en Azure Data Studio que la BD ChoixResto est crée avec ces tables. 
+--- 
+
+****** ERROR ****** 
+InvalidOperationException: Unable to resolve service for type 'ChoixResto.Models.Dal' 
+while attempting to activate 'ChoixResto.Controllers.AccueilController'.
+Solution:
+Dependency injection in ASP.NET Core 
+Add in Startup.cs 
+services.AddScoped<IDal, Dal>();
+
+
+
+**************************************** Todo ***************************************************************
+-- Installation sur le projets les differentes packages OK 
+-- Verifier la comunication SQL - Visual Code OK 
+-- Migration EF to BD OK
+-- Migration des DbContext avec les entites OK 
+-- Migration des Controleur OK 
+-- Copier le projet ChoixResto OK 
+-- Finir la formation
+-- Monter le projet sur Git
+-- Creer les test unitaires 
+
+https://www.youtube.com/watch?v=egH061KWktE&t=428s
+https://stackoverflow.com/questions/38417051/what-goes-into-dbcontextoptions-when-invoking-a-new-dbcontext
+
+Razor: 
+
+https://docs.microsoft.com/fr-fr/aspnet/core/tutorials/first-mvc-app/adding-view?view=aspnetcore-3.1&tabs=visual-studio
+https://docs.microsoft.com/fr-fr/aspnet/core/mvc/views/overview?view=aspnetcore-3.1
+
+
+https://stackoverflow.com/questions/36610705/how-do-i-use-a-checkboxfor-inside-a-foreach-when-working-with-a-list
