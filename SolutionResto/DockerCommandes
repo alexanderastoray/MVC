@@ -1,8 +1,0 @@
--- all container docker 
-macbook-pro-de-alexander:~ alexanderastoray$ docker ps
-macbook-pro-de-alexander:~ alexanderastoray$ docker container rm cc3f2ff51cab
-
--- all images docker 
-macbook-pro-de-alexander:~ alexanderastoray$ docker images
-macbook-pro-de-alexander:~ alexanderastoray$ docker image rm 75835a67d134
-
