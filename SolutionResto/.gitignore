@@ -1,0 +1,49 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#note files
+*.txt
+ChoixResto/*.sql
+
+
+#Visual Studio files
+ChoixResto/*.[Oo]bj
+ChoixResto/*.user
+ChoixResto/*.aps
+ChoixResto/*.pch
+ChoixResto/*.vspscc
+ChoixResto/*.vssscc
+ChoixResto/*_i.c
+ChoixResto/*_p.c
+ChoixResto/*.ncb
+ChoixResto/*.suo
+ChoixResto/*.tlb
+ChoixResto/*.tlh
+ChoixResto/*.bak
+ChoixResto/*.[Cc]ache
+ChoixResto/*.ilk
+ChoixResto/*.log
+ChoixResto/*.lib
+ChoixResto/*.sbr
+ChoixResto/*.sdf
+ChoixResto/ipch/
+ChoixResto/obj/
+ChoixResto/[Bb]in
+ChoixResto/[Dd]ebug*/
+ChoixResto/[Rr]elease*/
+ChoixResto/Ankh.NoLoad
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+
+#Project files
+[Bb]uild/
+
+#Subversion files
+.svn
+
+# Office Temp Files
+~$*

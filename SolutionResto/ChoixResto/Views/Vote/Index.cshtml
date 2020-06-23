@@ -1,0 +1,37 @@
+﻿@model ChoixResto.ViewModels.RestaurantVoteViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sondage</title>
+    <style type="text/css">
+        .field-validation-error { color : #f00;}
+        .validation-summary-errors { color : #f00; font-weight: bold};
+        .input-validation-error { border: 2px solide #f00;background-color : #fee}
+        input[type="text"].input-validation-error { outline: 2px solid #f00;}
+    </style>
+</head>
+<body>
+    <p>Cochez le restaurants où vous voulez bien aller. Attention, le vote est définitif</p>
+    @Html.ValidationMessageFor(m => m.ListeDesResto)
+    @using (Html.BeginForm())
+    {
+        for (int i = 0; i < Model.ListeDesResto.Count; i++)
+        {
+            <div>
+                @Html.CheckBoxFor(m => m.ListeDesResto[i].EstSelectionne)
+                @Html.LabelFor(m => m.ListeDesResto[i].EstSelectionne, Model.ListeDesResto[i].NomEtTelephone)
+                @Html.HiddenFor(m => m.ListeDesResto[i].Id)
+                @Html.HiddenFor(m => m.ListeDesResto[i].NomEtTelephone)
+            </div>
+        }
+         <br />
+        <input type="submit" value="Valider le choix" style="margin-top: 20px;"/>
+    }
+</body>
+</html>
