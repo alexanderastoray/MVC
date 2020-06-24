@@ -70,16 +70,6 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-/* Affichage tables
--------------------------------------------------- */
-table {
-  border-collapse: collapse;
-}
-
-td, th {
-  border: 1px solid black;
-}
-
 /* Affichage Validation
 -------------------------------------------------- */
 .field-validation-error { color : #f00;}

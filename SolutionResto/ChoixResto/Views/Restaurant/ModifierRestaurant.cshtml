@@ -1,25 +1,23 @@
 ﻿@model ChoixResto.Models.Resto
-<script type="text/javascript" src="~/wwwroot/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="~/wwwroot/jquery/jquery-validation/dist/jquery.validate.js"></script>
-<script type="text/javascript" src="~/wwwroot/jquery/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-<link rel="stylesheet" href="~/css/site.css" />
 
-@using (Html.BeginForm())
-{
-    <fieldset>
-        <legend>Modifier un restaurant</legend>
+<div class="text-center">
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <legend>Modifier un restaurant</legend>
 
-        <div>
-            @Html.LabelFor(model => model.Nom)
-            @Html.TextBoxFor(model => model.Nom)
-            @Html.ValidationMessageFor(model => model.Nom)
-        </div>
-        <div>
-            @Html.LabelFor(model => model.Telephone)
-            @Html.TextBoxFor(model => model.Telephone)
-            @Html.ValidationMessageFor(model => model.Telephone)
-        </div>
-        <br />
-        <input type="submit" value="Modifier" />
-    </fieldset>
-}
+            <div>
+                @Html.LabelFor(model => model.Nom, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Nom, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Nom)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Telephone, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Telephone)
+            </div>
+            <br />
+            <input type="submit" class="btn btn-primary btn-lg active" value="Modifier" />
+        </fieldset>
+    }
+</div>
