@@ -69,3 +69,20 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Affichage tables
+-------------------------------------------------- */
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid black;
+}
+
+/* Affichage Validation
+-------------------------------------------------- */
+.field-validation-error { color : #f00;}
+.validation-summary-errors { color : #f00; font-weight: bold};
+.input-validation-error { border: 2px solide #f00;background-color : #fee}
+input[type="text"].input-validation-error { outline: 2px solid #f00;}
