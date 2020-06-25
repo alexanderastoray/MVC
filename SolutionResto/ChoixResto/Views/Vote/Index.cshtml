@@ -1,32 +1,20 @@
 ﻿@model ChoixResto.ViewModels.RestaurantVoteViewModel
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Sondage</title>
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
+<div class="text-center">
     <p>Cochez le restaurants où vous voulez bien aller. Attention, le vote est définitif</p>
     @Html.ValidationMessageFor(m => m.ListeDesResto)
     @using (Html.BeginForm())
     {
         for (int i = 0; i < Model.ListeDesResto.Count; i++)
         {
-            <div>
-                @Html.CheckBoxFor(m => m.ListeDesResto[i].EstSelectionne)
-                @Html.LabelFor(m => m.ListeDesResto[i].EstSelectionne, Model.ListeDesResto[i].NomEtTelephone)
+            <div class="form-check">
+                @Html.CheckBoxFor(m => m.ListeDesResto[i].EstSelectionne, new { @class = "form-check-input" })
+                @Html.LabelFor(m => m.ListeDesResto[i].EstSelectionne, Model.ListeDesResto[i].NomEtTelephone, new { @class = "form-check-label" })
                 @Html.HiddenFor(m => m.ListeDesResto[i].Id)
                 @Html.HiddenFor(m => m.ListeDesResto[i].NomEtTelephone)
             </div>
         }
          <br />
-        <input type="submit" value="Valider le choix" style="margin-top: 20px;"/>
+        <input type="submit" class="btn btn-primary btn-lg active" value="Valider le choix"/>
     }
-</body>
-</html>
+
+</div>  
