@@ -101,7 +101,7 @@ namespace ChoixResto.Models
 
        }
 
-       /*
+       
       public Utilisateur ObtenirUtilisateur(string idString)
       {
           int idUser;
@@ -111,7 +111,7 @@ namespace ChoixResto.Models
           }
           return null;
       }
-      */
+      
 
         public bool UtilisateurtExiste(int id)
         {
@@ -137,6 +137,7 @@ namespace ChoixResto.Models
             return reponse;
         }
 
+        /*
         public Utilisateur ObtenirUtilisateur(string idStr)
         {
             switch (idStr)
@@ -151,6 +152,7 @@ namespace ChoixResto.Models
                     return CreeOuRecupere("Timéo", "1234");
             }
         }
+        
 
         private Utilisateur CreeOuRecupere(string nom, string motDePasse)
         {
@@ -162,6 +164,7 @@ namespace ChoixResto.Models
             }
             return utilisateur;
         }
+        */
 
         #endregion
         
@@ -213,8 +216,7 @@ namespace ChoixResto.Models
                 bdd.SaveChanges();
             }
         }
-
-        /*
+       
         public bool ADejaVote(int idSondage, string idUtilisateur)
         {
             bool result = false;
@@ -233,8 +235,8 @@ namespace ChoixResto.Models
             return result;
 
         }
-        */
-
+       
+        /*
         public bool ADejaVote(int idSondage, string idStr)
         {
             Utilisateur utilisateur = ObtenirUtilisateur(idStr);
@@ -251,7 +253,7 @@ namespace ChoixResto.Models
             }
             return false;
         }
-       
+       */
 
         #endregion
 

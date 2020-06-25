@@ -1,9 +1,10 @@
 ﻿using ChoixResto.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChoixResto.Data
 {
-    public class ChoixRestoContext : DbContext
+    public class ChoixRestoContext : IdentityDbContext
     {
         public ChoixRestoContext(DbContextOptions<ChoixRestoContext> options)
             : base(options)
