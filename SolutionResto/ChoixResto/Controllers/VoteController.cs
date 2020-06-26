@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using ChoixResto.Models;
 using ChoixResto.ViewModels;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ChoixResto.Controllers
 {
+    [Authorize]
     public class VoteController : Controller
     {
         private IDal dal;
