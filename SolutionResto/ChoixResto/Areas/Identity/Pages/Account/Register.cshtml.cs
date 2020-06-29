@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ChoixResto.Models;
 
 namespace ChoixResto.Areas.Identity.Pages.Account
 {
@@ -23,8 +24,10 @@ namespace ChoixResto.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private IDal _dal;
 
         public RegisterModel(
+            IDal dal,
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
@@ -34,6 +37,7 @@ namespace ChoixResto.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _dal = dal;
         }
 
         [BindProperty]
@@ -84,6 +88,8 @@ namespace ChoixResto.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                      _logger.LogInformation("User created a new account with password.");
+
+                    _dal.AjouterUtilisateur(Input.UserName, Input.Password);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("Index","Home");

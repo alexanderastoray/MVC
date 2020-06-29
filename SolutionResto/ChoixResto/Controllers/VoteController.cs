@@ -7,7 +7,9 @@ using ChoixResto.Models;
 using ChoixResto.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace ChoixResto.Controllers
 {
@@ -16,11 +18,13 @@ namespace ChoixResto.Controllers
     {
         private IDal dal;
         private readonly ILogger<VoteController> _logger;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
         // le principe d’injection de dépendances : Le principe est de créer une factory responsable de l’instanciation des contrôleurs utilisant un conteur IOC.
-        public VoteController(IDal dalIoc, ILogger<VoteController> logger)
+        public VoteController(IDal dalIoc, SignInManager<IdentityUser> signInManager, ILogger<VoteController> logger )
         {
             dal = dalIoc;
+            _signInManager = signInManager;
             this._logger = logger;
         }
 
@@ -29,7 +33,7 @@ namespace ChoixResto.Controllers
         public IActionResult Index(int id)
         {
             //_logger.LogInformation("Index Vote:" + dal.ADejaVote(id, Request.Headers["User-Agent"].ToString()));
-            if (dal.ADejaVote(id, Request.Headers["User-Agent"].ToString()))
+            if (dal.ADejaVote(id,User.Identity.Name))
             {
                 return RedirectToAction("AfficheResultat", new { id = id });
             }
@@ -60,7 +64,7 @@ namespace ChoixResto.Controllers
             if (!ModelState.IsValid)
                 return View(restoVoteVm);
 
-            Utilisateur uti = dal.ObtenirUtilisateur(Request.Headers["User-Agent"].ToString());
+            Utilisateur uti = dal.ObtenirUtilisateur(User.Identity.Name);
 
             if (uti == null)
                 return StatusCode(401);
@@ -77,7 +81,7 @@ namespace ChoixResto.Controllers
 
         public IActionResult AfficheResultat(int id)
         {
-            if (!dal.ADejaVote(id, Request.Headers["User-Agent"].ToString()))
+            if (!dal.ADejaVote(id, User.Identity.Name))
             {
                 return RedirectToAction("Index", new { id = id });
             }

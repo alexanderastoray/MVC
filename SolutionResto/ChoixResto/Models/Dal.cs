@@ -101,7 +101,7 @@ namespace ChoixResto.Models
 
        }
 
-       
+       /*
       public Utilisateur ObtenirUtilisateur(string idString)
       {
           int idUser;
@@ -111,7 +111,17 @@ namespace ChoixResto.Models
           }
           return null;
       }
-      
+      */
+
+      public Utilisateur ObtenirUtilisateur(string userName)
+      {
+          //_logger.LogInformation("User Name " + userName);
+          if (!userName.Equals(String.Empty))
+          {
+              return bdd.Utilisateurs.FirstOrDefault(user => user.Prenom == userName);
+          }
+          return null;
+      }
 
         public bool UtilisateurtExiste(int id)
         {
@@ -217,18 +227,21 @@ namespace ChoixResto.Models
             }
         }
        
-        public bool ADejaVote(int idSondage, string idUtilisateur)
+        public bool ADejaVote(int idSondage, string userName)
         {
             bool result = false;
-            int idUser;
-            bool success = Int32.TryParse(idUtilisateur, out idUser);
-             if (success)
+            if (!userName.Equals(String.Empty))
              {
-                 Utilisateur user = bdd.Utilisateurs.Find(idUser);
+                 Utilisateur user = ObtenirUtilisateur(userName);
+                 //_logger.LogInformation("User " + bdd.Sondages.Find(idSondage).Votes.Count());
                  if (user != null)
                  {
-                     if (bdd.Sondages.Find(idSondage).Votes != null)
-                        result = bdd.Sondages.Find(idSondage).Votes.Exists(rst => rst.Utilisateur == user);
+                    Sondage sondage = bdd.Sondages.Where(s => s.Id == idSondage).Include("Votes.Utilisateur").FirstOrDefault();
+                    // _logger.LogInformation("AjouterVote  : " + sondage.Votes.Count());
+                    if (sondage.Votes == null)
+                        return false;
+
+                    return sondage.Votes.Any(v => v.Utilisateur != null && v.Utilisateur.Id == user.Id);
                  }
              }
 
